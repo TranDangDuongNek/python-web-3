@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HÀNH TINH</title>
+    <script>
+        window.addEventListener("load", function() {
+       
+            const url = "https://handlers.education.launchcode.org/static/planets.json";
+
+          
+            const destination = document.getElementById("destination");
+
+           
+            fetch(url)
+                .then(response => response.json())  
+                .then(planets => {
+                    let index = 0;  
+
+                    // Xử lý sự kiện click
+                    destination.addEventListener("click", function() {
+                        // Lấy hành tinh hiện tại
+                        let planet = planets[index];
+
+                        // Cập nhật nội dung HTML
+                        destination.innerHTML = `
+                            <h3>${planet.name}</h3>
+                            <img src="${planet.image}" alt="${planet.name}" width="300">
+                        `;
+
+                        // Chuyển sang hành tinh tiếp theo (quay vòng)
+                        index = (index + 1) % planets.length;
+                    });
+                })
+                .catch(error => console.error("error 404", error));
+        });
+    </script>
+</head>
+<body>
+    <h3 id="destination">ẤN ĐỂ HIỂN THỊ CÁC HÀNH TINH</h3>
+</body>
+</html>
